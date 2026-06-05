@@ -16,3 +16,8 @@ Content-Type: application/json
   "username": "lucas",
   "password": "password123"
 }
+
+###
+
+GET http://localhost:8080/api/pokemon
+Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJsdWNhcyIsImlhdCI6MTc4MDY2MTExMywiZXhwIjoxNzgwNzQ3NTEzfQ.YAhSL3nF0kaMwJXbeS8Ym9vdyu2kVgsFqaKhIlZHenR8VIz_PXM4PsV-ZeUCIgyP

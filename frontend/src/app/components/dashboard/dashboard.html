@@ -1,1 +1,40 @@
-<p>dashboard works!</p>
+<div class="dashboard">
+  <header class="dashboard-header">
+    <h1>Pokédex</h1>
+    <button class="logout-btn" (click)="logout()">Déconnexion</button>
+  </header>
+
+  @if (loading) {
+    <div class="loading">
+      <p>Chargement des Pokémon...</p>
+    </div>
+  } @else {
+    <div class="pokemon-grid">
+      @for (pokemon of pokemons; track pokemon.id) {
+        <div class="pokemon-card">
+          <img
+            [src]="pokemon.sprites.other['official-artwork'].front_default"
+            [alt]="pokemon.name"
+          />
+          <div class="pokemon-info">
+            <span class="pokemon-id">#{{ pokemon.id.toString().padStart(3, '0') }}</span>
+            <h3>{{ pokemon.name | titlecase }}</h3>
+            <div class="types">
+              @for (t of pokemon.types; track t.type.name) {
+                <span class="type-badge" [style.background]="getTypeColor(t.type.name)">
+                  {{ t.type.name }}
+                </span>
+              }
+            </div>
+          </div>
+        </div>
+      }
+    </div>
+
+    <div class="pagination">
+      <button (click)="prevPage()" [disabled]="page === 0">← Précédent</button>
+      <span>Page {{ page + 1 }}</span>
+      <button (click)="nextPage()">Suivant →</button>
+    </div>
+  }
+</div>
