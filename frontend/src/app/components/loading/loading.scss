@@ -1,0 +1,223 @@
+$dur: 5s;
+
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 50vh;
+  gap: 1.5rem;
+}
+
+.ronflex {
+  width: 150px;
+  height: 195px;
+  overflow: visible;
+}
+
+// --- Base styles ---
+
+.rf-body, .rf-head, .rf-ear, .rf-arm, .rf-foot {
+  fill: none;
+  stroke: #7ab0e8;
+  stroke-width: 2.5;
+  stroke-dasharray: 1;
+}
+
+.rf-belly {
+  fill: none;
+  stroke: #d4aa58;
+  stroke-width: 2;
+  stroke-dasharray: 1;
+}
+
+.rf-eye {
+  fill: none;
+  stroke: #e0c8a8;
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-dasharray: 1;
+}
+
+.rf-snout {
+  fill: none;
+  stroke: #c0a880;
+  stroke-width: 2;
+  stroke-dasharray: 1;
+}
+
+.zzz {
+  fill: #9ecce8;
+  font-family: sans-serif;
+  font-weight: bold;
+  opacity: 0;
+}
+
+.z3 { font-size: 17px; }
+.z2 { font-size: 14px; }
+.z1 { font-size: 12px; }
+
+.loading-text {
+  color: #a8a8b3;
+  font-size: 1rem;
+}
+
+// --- Animations ---
+// Chaque élément partage la même durée totale ($dur = 5s).
+// Les keyframes définissent QUAND dans ce cycle l'élément se dessine.
+//
+// Schéma commun :
+//   0% → START% : dashoffset=1 (invisible)
+//   START% → END% : dashoffset 1→0 (dessin)
+//   END% → 88% : dashoffset=0 (visible)
+//   88% → 96% : opacity 1→0 (fondu sortant)
+//   96% → 100% : dashoffset=1, opacity=0 (reset invisible)
+
+.rf-body   { animation: rf-body  $dur linear infinite; }
+.rf-head   { animation: rf-head  $dur linear infinite; }
+.rf-ear-l  { animation: rf-lear  $dur linear infinite; }
+.rf-ear-r  { animation: rf-rear  $dur linear infinite; }
+.rf-belly  { animation: rf-belly $dur linear infinite; }
+.rf-arm-l  { animation: rf-larm  $dur linear infinite; }
+.rf-arm-r  { animation: rf-rarm  $dur linear infinite; }
+.rf-foot-l { animation: rf-lfoot $dur linear infinite; }
+.rf-foot-r { animation: rf-rfoot $dur linear infinite; }
+.rf-eye-l  { animation: rf-leye  $dur linear infinite; }
+.rf-eye-r  { animation: rf-reye  $dur linear infinite; }
+.rf-snout  { animation: rf-snout $dur linear infinite; }
+.z1        { animation: rf-z1    $dur linear infinite; }
+.z2        { animation: rf-z2    $dur linear infinite; }
+.z3        { animation: rf-z3    $dur linear infinite; }
+
+// Corps (0%→14%)
+@keyframes rf-body {
+  0%  { stroke-dashoffset: 1; }
+  14% { stroke-dashoffset: 0; }
+  88% { stroke-dashoffset: 0; opacity: 1; }
+  96% { stroke-dashoffset: 0; opacity: 0; }
+  100% { stroke-dashoffset: 1; opacity: 0; }
+}
+
+// Tête (10%→22%)
+@keyframes rf-head {
+  0%, 10% { stroke-dashoffset: 1; }
+  22% { stroke-dashoffset: 0; }
+  88% { stroke-dashoffset: 0; opacity: 1; }
+  96% { stroke-dashoffset: 0; opacity: 0; }
+  100% { stroke-dashoffset: 1; opacity: 0; }
+}
+
+// Oreille gauche (20%→26%)
+@keyframes rf-lear {
+  0%, 20% { stroke-dashoffset: 1; }
+  26% { stroke-dashoffset: 0; }
+  88% { stroke-dashoffset: 0; opacity: 1; }
+  96% { stroke-dashoffset: 0; opacity: 0; }
+  100% { stroke-dashoffset: 1; opacity: 0; }
+}
+
+// Oreille droite (23%→29%)
+@keyframes rf-rear {
+  0%, 23% { stroke-dashoffset: 1; }
+  29% { stroke-dashoffset: 0; }
+  88% { stroke-dashoffset: 0; opacity: 1; }
+  96% { stroke-dashoffset: 0; opacity: 0; }
+  100% { stroke-dashoffset: 1; opacity: 0; }
+}
+
+// Ventre (26%→34%)
+@keyframes rf-belly {
+  0%, 26% { stroke-dashoffset: 1; }
+  34% { stroke-dashoffset: 0; }
+  88% { stroke-dashoffset: 0; opacity: 1; }
+  96% { stroke-dashoffset: 0; opacity: 0; }
+  100% { stroke-dashoffset: 1; opacity: 0; }
+}
+
+// Bras gauche (32%→38%)
+@keyframes rf-larm {
+  0%, 32% { stroke-dashoffset: 1; }
+  38% { stroke-dashoffset: 0; }
+  88% { stroke-dashoffset: 0; opacity: 1; }
+  96% { stroke-dashoffset: 0; opacity: 0; }
+  100% { stroke-dashoffset: 1; opacity: 0; }
+}
+
+// Bras droit (35%→41%)
+@keyframes rf-rarm {
+  0%, 35% { stroke-dashoffset: 1; }
+  41% { stroke-dashoffset: 0; }
+  88% { stroke-dashoffset: 0; opacity: 1; }
+  96% { stroke-dashoffset: 0; opacity: 0; }
+  100% { stroke-dashoffset: 1; opacity: 0; }
+}
+
+// Patte gauche (38%→43%)
+@keyframes rf-lfoot {
+  0%, 38% { stroke-dashoffset: 1; }
+  43% { stroke-dashoffset: 0; }
+  88% { stroke-dashoffset: 0; opacity: 1; }
+  96% { stroke-dashoffset: 0; opacity: 0; }
+  100% { stroke-dashoffset: 1; opacity: 0; }
+}
+
+// Patte droite (42%→47%)
+@keyframes rf-rfoot {
+  0%, 42% { stroke-dashoffset: 1; }
+  47% { stroke-dashoffset: 0; }
+  88% { stroke-dashoffset: 0; opacity: 1; }
+  96% { stroke-dashoffset: 0; opacity: 0; }
+  100% { stroke-dashoffset: 1; opacity: 0; }
+}
+
+// Œil gauche (46%→50%)
+@keyframes rf-leye {
+  0%, 46% { stroke-dashoffset: 1; }
+  50% { stroke-dashoffset: 0; }
+  88% { stroke-dashoffset: 0; opacity: 1; }
+  96% { stroke-dashoffset: 0; opacity: 0; }
+  100% { stroke-dashoffset: 1; opacity: 0; }
+}
+
+// Œil droit (48%→52%)
+@keyframes rf-reye {
+  0%, 48% { stroke-dashoffset: 1; }
+  52% { stroke-dashoffset: 0; }
+  88% { stroke-dashoffset: 0; opacity: 1; }
+  96% { stroke-dashoffset: 0; opacity: 0; }
+  100% { stroke-dashoffset: 1; opacity: 0; }
+}
+
+// Museau (50%→53%)
+@keyframes rf-snout {
+  0%, 50% { stroke-dashoffset: 1; }
+  53% { stroke-dashoffset: 0; }
+  88% { stroke-dashoffset: 0; opacity: 1; }
+  96% { stroke-dashoffset: 0; opacity: 0; }
+  100% { stroke-dashoffset: 1; opacity: 0; }
+}
+
+// ZZZ (apparaissent en décalé après le museau)
+@keyframes rf-z1 {
+  0%, 55% { opacity: 0; }
+  63%      { opacity: 1; }
+  88%      { opacity: 1; }
+  96%      { opacity: 0; }
+  100%     { opacity: 0; }
+}
+
+@keyframes rf-z2 {
+  0%, 61% { opacity: 0; }
+  69%     { opacity: 1; }
+  88%     { opacity: 1; }
+  96%     { opacity: 0; }
+  100%    { opacity: 0; }
+}
+
+@keyframes rf-z3 {
+  0%, 67% { opacity: 0; }
+  75%     { opacity: 1; }
+  88%     { opacity: 1; }
+  96%     { opacity: 0; }
+  100%    { opacity: 0; }
+}

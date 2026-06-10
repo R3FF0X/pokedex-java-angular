@@ -20,6 +20,14 @@ public class PokemonController {
         return ResponseEntity.ok(pokemonService.getPokemonList(page, size));
     }
 
+    @GetMapping("/search")
+    public ResponseEntity<JsonNode> search(
+            @RequestParam String q,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "20") int size) {
+        return ResponseEntity.ok(pokemonService.searchPokemon(q, page, size));
+    }
+
     @GetMapping("/{nameOrId}")
     public ResponseEntity<JsonNode> getDetail(@PathVariable String nameOrId) {
         return ResponseEntity.ok(pokemonService.getPokemonDetail(nameOrId));

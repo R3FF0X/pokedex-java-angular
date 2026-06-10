@@ -2,6 +2,11 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
+export interface PokemonSearchResponse {
+  count: number;
+  results: PokemonDetail[];
+}
+
 export interface PokemonListItem {
   name: string;
   url: string;
@@ -17,6 +22,7 @@ export interface PokemonListResponse {
 export interface PokemonDetail {
   id: number;
   name: string;
+  nameFr: string;
   height: number;
   weight: number;
   sprites: {
@@ -54,5 +60,11 @@ export class PokemonService {
 
   getDetail(nameOrId: string | number): Observable<PokemonDetail> {
     return this.http.get<PokemonDetail>(`${this.apiUrl}/${nameOrId}`);
+  }
+
+  search(q: string, page: number = 0, size: number = 20): Observable<PokemonSearchResponse> {
+    return this.http.get<PokemonSearchResponse>(
+      `${this.apiUrl}/search?q=${encodeURIComponent(q)}&page=${page}&size=${size}`
+    );
   }
 }

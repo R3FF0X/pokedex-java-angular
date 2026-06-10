@@ -4,21 +4,67 @@
     <button class="logout-btn" (click)="logout()">Déconnexion</button>
   </header>
 
-  @if (loading) {
+  @if (favoritePokemon) {
+    <section class="favorite-section">
+      <h2 class="favorite-title">⭐ Mon favori</h2>
+      <div class="favorite-card">
+        <img
+          [src]="favoritePokemon.sprites.other['official-artwork'].front_default"
+          [alt]="favoritePokemon.nameFr"
+        />
+        <div class="pokemon-info">
+          <span class="pokemon-id">#{{ favoritePokemon.id.toString().padStart(3, '0') }}</span>
+          <h3>{{ favoritePokemon.nameFr }}</h3>
+          <div class="types">
+            @for (t of favoritePokemon.types; track t.type.name) {
+              <span class="type-badge" [style.background]="getTypeColor(t.type.name)">
+                {{ t.type.name }}
+              </span>
+            }
+          </div>
+        </div>
+        <button class="star-btn active" (click)="toggleFavorite(favoritePokemon)" title="Retirer des favoris">★</button>
+      </div>
+    </section>
+  }
+
+  <div class="search-bar">
+    <input
+      type="text"
+      placeholder="Rechercher un Pokémon... (min. 3 caractères)"
+      [value]="searchQuery"
+      (input)="onSearch($event)"
+    />
+    @if (isSearchMode) {
+      <span class="search-count">{{ searchTotal }} résultat{{ searchTotal > 1 ? 's' : '' }}</span>
+    }
+  </div>
+
+  @if (loading && !isSearchMode) {
+    <app-loading />
+  } @else if (searching) {
     <div class="loading">
-      <p>Chargement des Pokémon...</p>
+      <p>Recherche en cours...</p>
     </div>
+  } @else if (displayedPokemons.length === 0 && isSearchMode) {
+    <div class="no-results">Aucun Pokémon trouvé pour "{{ searchQuery }}"</div>
   } @else {
     <div class="pokemon-grid">
-      @for (pokemon of pokemons; track pokemon.id) {
+      @for (pokemon of displayedPokemons; track pokemon.id) {
         <div class="pokemon-card">
+          <button
+            class="star-btn"
+            [class.active]="favoritePokemonId === pokemon.id"
+            (click)="toggleFavorite(pokemon)"
+            title="Définir comme favori"
+          >{{ favoritePokemonId === pokemon.id ? '★' : '☆' }}</button>
           <img
             [src]="pokemon.sprites.other['official-artwork'].front_default"
-            [alt]="pokemon.name"
+            [alt]="pokemon.nameFr"
           />
           <div class="pokemon-info">
             <span class="pokemon-id">#{{ pokemon.id.toString().padStart(3, '0') }}</span>
-            <h3>{{ pokemon.name | titlecase }}</h3>
+            <h3>{{ pokemon.nameFr }}</h3>
             <div class="types">
               @for (t of pokemon.types; track t.type.name) {
                 <span class="type-badge" [style.background]="getTypeColor(t.type.name)">
@@ -32,9 +78,9 @@
     </div>
 
     <div class="pagination">
-      <button (click)="prevPage()" [disabled]="page === 0">← Précédent</button>
-      <span>Page {{ page + 1 }}</span>
-      <button (click)="nextPage()">Suivant →</button>
+      <button (click)="prevPage()" [disabled]="isFirstPage">← Précédent</button>
+      <span>Page {{ currentPage + 1 }}</span>
+      <button (click)="nextPage()" [disabled]="isLastPage">Suivant →</button>
     </div>
   }
 </div>

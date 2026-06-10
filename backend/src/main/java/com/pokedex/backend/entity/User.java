@@ -24,4 +24,7 @@ public class User {
 
     @Column(name = "created_at")
     private LocalDateTime createdAt = LocalDateTime.now();
+
+    @Column(name = "favorite_pokemon_id")
+    private Long favoritePokemonId;
 }
